@@ -1,11 +1,13 @@
 import React from "react";
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 
 const App = () => {
   return (
-    <View>
-      <Text>Current Web App</Text>
-    </View>
+    <SafeAreaView>
+      <View>
+        <Text>Current Web App</Text>
+      </View>
+    </SafeAreaView>
   )
 }
 
