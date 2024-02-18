@@ -1,9 +1,11 @@
 import React from "react";
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import MainContainer from "./navigation/MainContainer";
 
 const App = () => {
   return (
     <SafeAreaView style={styles.wrapper}>
+      <MainContainer/>
       <View style={styles.container}>
         <Text style={styles.title}>Current Web App</Text>
       </View>
