@@ -2,6 +2,9 @@ import * as React from 'react';
 import { View, Text } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+//<MaterialCommunityIcons name="basket-unfill" size={24} color="black" />
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
