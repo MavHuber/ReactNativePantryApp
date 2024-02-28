@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.11",
+    "@react-navigation/stack": "^6.3.25",
     "react-native-gesture-handler": "^2.15.0",
     "react-native-reanimated": "^3.7.1",
     "react-native-safe-area-context": "^4.9.0",
