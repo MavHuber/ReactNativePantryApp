@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import MainContainer from "./navigation/MainContainer";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const App = () => {
   return (
