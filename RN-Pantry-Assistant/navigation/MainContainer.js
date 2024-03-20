@@ -51,8 +51,8 @@ export default function MainContainer(){
             >
 
             <Tab.Screen name={homeName} component={HomeScreen}/>
-            <Tab.Screen name={pantryName} component={pantryScreen}/>
-            <Tab.Screen name={mealName} component={mealScreen}/>
+            <Tab.Screen name={pantryName} component={PantryScreen}/>
+            <Tab.Screen name={mealName} component={MealScreen}/>
 
 
             </Tab.Navigator>
