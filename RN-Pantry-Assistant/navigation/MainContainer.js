@@ -1,11 +1,15 @@
 import * as React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, useColorScheme } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 //<MaterialCommunityIcons name="basket-unfill" size={24} color="black" />
 
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer,
+         DefaultTheme,
+        DarkTheme,
+     } from '@react-navigation/native';
+
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // Screens
@@ -15,10 +19,18 @@ import MealScreen from './screens/MealScreen';
 
 // Screen names
 const homeName = 'Home';
-const pantryName = 'Pantry';
-const mealName = 'Meal'
+const pantryName = 'Breathe';
+const mealName = 'Fidget'
 
 const Tab = createBottomTabNavigator();
+
+const MyTheme = {
+    ...DefaultTheme,
+    colors: {
+        ...DefaultTheme.colors,
+        background: 'transparent'
+    }
+}
 
 export default function MainContainer(){
     return(
@@ -45,13 +57,18 @@ export default function MainContainer(){
                 activeTintColor: 'tomato',
                 inactiveTintColor: 'grey',
                 labelStyle: { paddingButton: 10, fontSize: 10},
-                style: {padding: 10, height: 70}
+                style: {
+                    padding: 10, 
+                    height: 70,
+                    backgroundColor: 'transparent',
+                    elevation: 0,
+                    position: 'abosolute',}
             }}
             
             >
 
-            <Tab.Screen name={homeName} component={HomeScreen}/>
             <Tab.Screen name={pantryName} component={PantryScreen}/>
+            <Tab.Screen name={homeName} component={HomeScreen}/>
             <Tab.Screen name={mealName} component={MealScreen}/>
 
 
