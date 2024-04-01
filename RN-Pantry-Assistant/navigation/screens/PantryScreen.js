@@ -22,8 +22,8 @@ export default function PantryScreen({ navigation }) {
                     <RNPickerSelect
                     className='meditationInput'
                     useNativeAndroidPickerStyle={false}
-                    style={styles.picker}
                     selectedValue={selectedValue}
+                    style={{...pickerSelectStyles}}
                     onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
                     items={[
                         { label: "3 Breaths", value: "3" },
@@ -67,8 +67,32 @@ const styles = StyleSheet.create({
         flex: 3,
         justifyContent: 'center',
         alignItems: 'center',
-    },
-    picker: {
-        
+        paddingLeft: 24,
+        paddingRight: 24,
     }
 });
+
+const pickerSelectStyles = StyleSheet.create({
+    inputIOS: {
+      fontSize: 16,
+      paddingVertical: 12,
+      paddingHorizontal: 10,
+      borderWidth: 1,
+      borderColor: 'gray',
+      borderRadius: 4,
+      color: 'black',
+      paddingRight: 30, // to ensure the text is never behind the icon
+      alignItems: 'center', 
+    },
+    inputAndroid: {
+      fontSize: 16,
+      paddingHorizontal: 10,
+      paddingVertical: 8,
+      borderWidth: 0.5,
+      borderColor: 'purple',
+      borderRadius: 8,
+      color: 'black',
+      paddingRight: 30, // to ensure the text is never behind the icon
+      alignItems: 'center',
+    },
+  });
