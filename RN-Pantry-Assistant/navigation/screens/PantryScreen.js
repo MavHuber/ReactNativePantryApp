@@ -48,9 +48,16 @@ export default function PantryScreen({ navigation }) {
     );
 }
 
+// FUNCTIONS
+
+const griwCircle = () => {
+    //circleProgress.
+}
 function onPress() {
     return <h1>hi</h1>;
 }
+
+// ---------- STYLES ----------------
 
 const styles = StyleSheet.create({
     container: {
