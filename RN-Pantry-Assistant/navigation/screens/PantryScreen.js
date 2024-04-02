@@ -11,15 +11,48 @@ export default function PantryScreen({ navigation }) {
     const [selectedValue, setSelectedValue] = useState("option1");
 
     const move = useRef(new Animated.Value(0)).current;
-    Animated.timing(move, {
-        toValue: 1,
-        duration: 4000,
-        useNativeDriver: true,
-    })
-    const rotation = move.interpolate({
+    const textOpacity = useRef(new Animated.Value(1)).current;
+
+    Animated.loop(
+        Animated.sequence([
+            Animated.parallel([
+                Animated.timing(textOpacity, {
+                    toValue: 1,
+                    duration: 300,
+                    useNativeDriver: true,
+                }),
+                Animated.timing(move, {
+                    toValue: 1,
+                    duration: 4000,
+                    useNativeDriver: true,
+                }),
+            ]),
+            Animated.parallel([
+                Animated.timing(textOpacity, {
+                    delay: 100,
+                    toValue: 0,
+                    duration: 300,
+                    useNativeDriver: true,
+                }),
+                Animated.timing(move, {
+                    delay: 1000,
+                    toValue: 0,
+                    duration: 4000,
+                    useNativeDriver: true,
+                }),
+            ])
+        ]),
+
+    ).start();
+
+    const translate = move.interpolate({
         inputRange: [0,1],
-        outputRange: [`0deg`, `180deg`]
-    })
+        outputRange: [0, circleWidth / 6],
+    });
+    const exhale = textOpacity.interpolate({
+        inputRange: [0,1],
+        outputRange: [1, 0],
+    });
         
     let breathCount
 
@@ -31,28 +64,59 @@ export default function PantryScreen({ navigation }) {
                 style= {{flex : 1}}>
 
                 <View style={styles.counter}>
-                
-                    <Text>How many breaths?</Text>
-                    <RNPickerSelect
-                        className='meditationInput'
-                        useNativeAndroidPickerStyle={false}
-                        selectedValue={selectedValue}
-                        style={{...pickerSelectStyles}}
-                        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-                        items={[
-                            { label: "3 Breaths", value: "3" },
-                            { label: "5 Breaths", value: "5" },
-                            { label: "7 Breaths", value: "7" },
-                            { label: "10 Breaths", value: "10"}
-                        ]}
-                    /> 
+                    <View style={styles.picker}>
+                        <Text>How many breaths?</Text>
+                        <RNPickerSelect
+                            className='meditationInput'
+                            useNativeAndroidPickerStyle={false}
+                            selectedValue={selectedValue}
+                            style={{...pickerSelectStyles}}
+                            onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                            items={[
+                                { label: "3 Breaths", value: "3" },
+                                { label: "5 Breaths", value: "5" },
+                                { label: "7 Breaths", value: "7" },
+                                { label: "10 Breaths", value: "10"}
+                            ]}
+                        /> 
+                    </View>
                     {/* CIRCLE ANIMATION */}
                     <View style={styles.circleContainer}>
-                        {[0, 1, 2, 3].map((item) => (
+                        <Animated.View
+                            style={{
+                                width: circleWidth,
+                                height: circleWidth,
+                                ...StyleSheet.absoluteFill,
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                opacity: textOpacity
+                            }}
+                        >
+                            <Text style={{ fontSize: 20, fontWeight: '600'}}>Inhale</Text>
+                        </Animated.View>
+                        <Animated.View
+                            style={{
+                                width: circleWidth,
+                                height: circleWidth,
+                                ...StyleSheet.absoluteFill,
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                opacity: exhale,
+                            }}
+                        >
+                            <Text style={{ fontSize: 20, fontWeight: '600'}}>Exhale</Text>
+                        </Animated.View>
+                        {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((item) => {
+                            const rotation = move.interpolate({
+                                inputRange: [0,1],
+                                outputRange: [`${item * 45}deg`, `${item * 45 +180}deg`],
+                            }); 
+                            return(
                             <Animated.View
                                 key={item}
                                 style={{
-                                    backgroundColor: 'purple',
+                                    opacity: 0.1,
+                                    backgroundColor: '#0492C2',
                                     width: circleWidth,
                                     height: circleWidth,
                                     borderRadius: circleWidth / 2,
@@ -60,11 +124,14 @@ export default function PantryScreen({ navigation }) {
                                     transform: [
                                         {
                                             rotateZ: rotation,
-                                        }
-                                    ]
-                                }}>
-                            </Animated.View>
-                        ))}
+                                        },
+                                        {translateX: translate},
+                                        {translateY: translate}
+                                    ],
+                                }}
+                            ></Animated.View>
+                            );
+                            })}
                     </View>
                 <Text className='breaths'>Breaths remaining: {breathCount}</Text>
                 <Text className='instructions'>Are you ready to begin?</Text>
@@ -79,10 +146,6 @@ export default function PantryScreen({ navigation }) {
 }
 
 // FUNCTIONS
-
-const griwCircle = () => {
-    //circleProgress.
-}
 function onPress() {
     return <h1>hi</h1>;
 }
@@ -112,6 +175,10 @@ const styles = StyleSheet.create({
         width: width / 2,
         top: height / 4,
     },
+    picker: {
+        top: height / 8,
+        textAlign: 'center',
+    }
 });
 
 const pickerSelectStyles = StyleSheet.create({
