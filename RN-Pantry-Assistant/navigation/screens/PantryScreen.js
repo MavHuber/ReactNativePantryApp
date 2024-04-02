@@ -1,11 +1,25 @@
 import * as React from 'react';
-import { View, Text, Button, ImageBackground, StyleSheet } from 'react-native';
-import { useState } from 'react';
+import { View, Text, Button, ImageBackground, StyleSheet, Dimensions, Animated } from 'react-native';
+import { useState, useRef } from 'react';
 import RNPickerSelect from 'react-native-picker-select';
+
+const { width, height } = Dimensions.get("screen");
+const circleWidth = width / 2;
 
 export default function PantryScreen({ navigation }) {
 
     const [selectedValue, setSelectedValue] = useState("option1");
+
+    const move = useRef(new Animated.Value(0)).current;
+    Animated.timing(move, {
+        toValue: 1,
+        duration: 4000,
+        useNativeDriver: true,
+    })
+    const rotation = move.interpolate({
+        inputRange: [0,1],
+        outputRange: [`0deg`, `180deg`]
+    })
         
     let breathCount
 
@@ -20,22 +34,38 @@ export default function PantryScreen({ navigation }) {
                 
                     <Text>How many breaths?</Text>
                     <RNPickerSelect
-                    className='meditationInput'
-                    useNativeAndroidPickerStyle={false}
-                    selectedValue={selectedValue}
-                    style={{...pickerSelectStyles}}
-                    onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-                    items={[
-                        { label: "3 Breaths", value: "3" },
-                        { label: "5 Breaths", value: "5" },
-                        { label: "7 Breaths", value: "7" },
-                        { label: "10 Breaths", value: "10"}
-                    ]}
-                    />
-                <View className='circleWrap'>
-                    <View className='circleOutline'></View>
-                    <View className='circleProgress'></View>
-                </View>
+                        className='meditationInput'
+                        useNativeAndroidPickerStyle={false}
+                        selectedValue={selectedValue}
+                        style={{...pickerSelectStyles}}
+                        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                        items={[
+                            { label: "3 Breaths", value: "3" },
+                            { label: "5 Breaths", value: "5" },
+                            { label: "7 Breaths", value: "7" },
+                            { label: "10 Breaths", value: "10"}
+                        ]}
+                    /> 
+                    {/* CIRCLE ANIMATION */}
+                    <View style={styles.circleContainer}>
+                        {[0, 1, 2, 3].map((item) => (
+                            <Animated.View
+                                key={item}
+                                style={{
+                                    backgroundColor: 'purple',
+                                    width: circleWidth,
+                                    height: circleWidth,
+                                    borderRadius: circleWidth / 2,
+                                    ...StyleSheet.absoluteFill,
+                                    transform: [
+                                        {
+                                            rotateZ: rotation,
+                                        }
+                                    ]
+                                }}>
+                            </Animated.View>
+                        ))}
+                    </View>
                 <Text className='breaths'>Breaths remaining: {breathCount}</Text>
                 <Text className='instructions'>Are you ready to begin?</Text>
                 <Button className='startBreath'
@@ -76,7 +106,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingLeft: 24,
         paddingRight: 24,
-    }
+    },
+    circleContainer: {
+        flex: 1,
+        width: width / 2,
+        top: height / 4,
+    },
 });
 
 const pickerSelectStyles = StyleSheet.create({
