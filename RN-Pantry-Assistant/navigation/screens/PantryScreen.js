@@ -8,42 +8,43 @@ const circleWidth = width / 2;
 
 export default function PantryScreen({ navigation }) {
 
-    const [selectedValue, setSelectedValue] = useState("option1");
-
     const move = useRef(new Animated.Value(0)).current;
     const textOpacity = useRef(new Animated.Value(1)).current;
 
-    Animated.loop(
-        Animated.sequence([
-            Animated.parallel([
-                Animated.timing(textOpacity, {
-                    toValue: 1,
-                    duration: 300,
-                    useNativeDriver: true,
-                }),
-                Animated.timing(move, {
-                    toValue: 1,
-                    duration: 4000,
-                    useNativeDriver: true,
-                }),
-            ]),
-            Animated.parallel([
-                Animated.timing(textOpacity, {
-                    delay: 100,
-                    toValue: 0,
-                    duration: 300,
-                    useNativeDriver: true,
-                }),
-                Animated.timing(move, {
-                    delay: 1000,
-                    toValue: 0,
-                    duration: 4000,
-                    useNativeDriver: true,
-                }),
-            ])
-        ]),
+    const startAnimation = () => {
 
-    ).start();
+        Animated.loop(
+            Animated.sequence([
+                Animated.parallel([
+                    Animated.timing(textOpacity, {
+                        toValue: 1,
+                        duration: 300,
+                        useNativeDriver: true,
+                    }),
+                    Animated.timing(move, {
+                        toValue: 1,
+                        duration: 4000,
+                        useNativeDriver: true,
+                    }),
+                ]),
+                Animated.parallel([
+                    Animated.timing(textOpacity, {
+                        delay: 100,
+                        toValue: 0,
+                        duration: 300,
+                        useNativeDriver: true,
+                    }),
+                    Animated.timing(move, {
+                        delay: 1000,
+                        toValue: 0,
+                        duration: 4000,
+                        useNativeDriver: true,
+                    }),
+                ])
+            ]),
+            { iterations: breathCount}
+        ).start();
+    }
 
     const translate = move.interpolate({
         inputRange: [0,1],
@@ -54,7 +55,7 @@ export default function PantryScreen({ navigation }) {
         outputRange: [1, 0],
     });
         
-    let breathCount
+    const [ breathCount, setBreathCount ] = useState("");
 
     return(
         <View style={styles.container}>
@@ -69,9 +70,9 @@ export default function PantryScreen({ navigation }) {
                         <RNPickerSelect
                             className='meditationInput'
                             useNativeAndroidPickerStyle={false}
-                            selectedValue={selectedValue}
+                            selectedValue={breathCount}
                             style={{...pickerSelectStyles}}
-                            onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                            onValueChange={(breathCount) => setBreathCount(breathCount)}
                             items={[
                                 { label: "3 Breaths", value: "3" },
                                 { label: "5 Breaths", value: "5" },
@@ -136,7 +137,7 @@ export default function PantryScreen({ navigation }) {
                 <Text className='breaths'>Breaths remaining: {breathCount}</Text>
                 <Text className='instructions'>Are you ready to begin?</Text>
                 <Button className='startBreath'
-                    onPress={onPress()} // onPress DOES NOT EXIST
+                    onPress={startAnimation()}
                     title="Begin"
                 />
                 </View>
@@ -146,7 +147,7 @@ export default function PantryScreen({ navigation }) {
 }
 
 // FUNCTIONS
-function onPress() {
+function startAnimation() {
     return <h1>hi</h1>;
 }
 
