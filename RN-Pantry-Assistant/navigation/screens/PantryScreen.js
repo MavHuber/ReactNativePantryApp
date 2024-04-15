@@ -10,6 +10,7 @@ export default function PantryScreen({ navigation }) {
 
     const move = useRef(new Animated.Value(0)).current;
     const textOpacity = useRef(new Animated.Value(1)).current;
+    const breathsRemainingOpacity = useRef(new Animated.Value(2)).current;
 
     const startAnimation = () => {
         const breathCountInt = parseInt(breathCount);
@@ -17,7 +18,6 @@ export default function PantryScreen({ navigation }) {
     };
 
     const animateBreath = (count) => {
-
         if (count > 0) {
             Animated.sequence([
                 Animated.parallel([
@@ -48,6 +48,11 @@ export default function PantryScreen({ navigation }) {
                 ]),
             ]).start(() => {
                 animateBreath(count - 1);
+                Animated.timing(breathsRemainingOpacity, {
+                    toValue: 0,
+                    duration: 300,
+                    useNativeDriver: true,
+                }).start();
             });
         }
     };
@@ -140,7 +145,9 @@ export default function PantryScreen({ navigation }) {
                             );
                             })}
                     </View>
-                <Text className='breaths'>Breaths remaining: {breathCount}</Text>
+                <Animated.View style={{ opacity: breathsRemainingOpacity}}>
+                    <Text className='breaths'>Breaths remaining: {breathCount}</Text>
+                </Animated.View>
                 <Text className='instructions'>Are you ready to begin?</Text>
                 <Button className='startBreath'
                     onPress={startAnimation()}
