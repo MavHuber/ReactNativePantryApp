@@ -12,8 +12,13 @@ export default function PantryScreen({ navigation }) {
     const textOpacity = useRef(new Animated.Value(1)).current;
 
     const startAnimation = () => {
+        const breathCountInt = parseInt(breathCount);
+        animateBreath(breathCountInt);
+    };
 
-        Animated.loop(
+    const animateBreath = (count) => {
+
+        if (count > 0) {
             Animated.sequence([
                 Animated.parallel([
                     Animated.timing(textOpacity, {
@@ -40,11 +45,12 @@ export default function PantryScreen({ navigation }) {
                         duration: 4000,
                         useNativeDriver: true,
                     }),
-                ])
-            ]),
-            { iterations: breathCount}
-        ).start();
-    }
+                ]),
+            ]).start(() => {
+                animateBreath(count - 1);
+            });
+        }
+    };
 
     const translate = move.interpolate({
         inputRange: [0,1],
