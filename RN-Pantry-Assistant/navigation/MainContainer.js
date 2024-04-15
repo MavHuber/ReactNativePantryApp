@@ -52,19 +52,19 @@ export default function MainContainer(){
 
                     return <Ionicons name={iconName} size={size} color={color}/>
                 },
+                tabBarActiveTintColor: 'blue',
+                tabBarInactiveTintColor: 'grey',
+                tabBarLabelStyle: {
+                    padding: 10,
+                    fontSize: 10
+                },
+                tabBarStyle:[
+                    {
+                        display: 'flex'
+                    },
+                    null
+                ]
             })}
-            tabBarOptions={{
-                activeTintColor: 'tomato',
-                inactiveTintColor: 'grey',
-                labelStyle: { paddingButton: 10, fontSize: 10},
-                style: {
-                    padding: 10, 
-                    height: 70,
-                    backgroundColor: 'transparent',
-                    elevation: 0,
-                    position: 'abosolute',}
-            }}
-            
             >
 
             <Tab.Screen name={pantryName} component={PantryScreen}/>
