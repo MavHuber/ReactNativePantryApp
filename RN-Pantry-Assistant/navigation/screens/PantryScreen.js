@@ -152,11 +152,6 @@ export default function PantryScreen({ navigation }) {
     );
 }
 
-// FUNCTIONS
-function startAnimation() {
-    return <h1>hi</h1>;
-}
-
 // ---------- STYLES ----------------
 
 const styles = StyleSheet.create({
