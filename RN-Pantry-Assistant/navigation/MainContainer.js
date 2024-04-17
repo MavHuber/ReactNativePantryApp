@@ -55,7 +55,7 @@ export default function MainContainer(){
                 tabBarActiveTintColor: 'blue',
                 tabBarInactiveTintColor: 'grey',
                 tabBarLabelStyle: {
-                    padding: 10,
+                    padding: 3,
                     fontSize: 10
                 },
                 tabBarStyle:[
