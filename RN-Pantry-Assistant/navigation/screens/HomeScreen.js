@@ -7,7 +7,9 @@ export default function HomeScreen({navigation}) {
             <Text style={styles.heading}>Welcome, friend!</Text> 
             <View style={styles.quote}>
                 <Text>Quote</Text>
-                <View></View>
+                <View>
+                    
+                </View>
             </View>
             
 
