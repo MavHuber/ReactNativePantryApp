@@ -71,7 +71,7 @@ export default function PantryScreen({ navigation }) {
     return(
         <View style={styles.container}>
             <ImageBackground 
-                source={require('../../assets/breathBackground.jpg')}
+                source={require('../../assets/plant-background.jpg')}
                 resizeMode='cover'
                 style= {{flex : 1}}>
 

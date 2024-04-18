@@ -4,15 +4,19 @@ import { View, Text, Button, ImageBackground, StyleSheet, Dimensions, Animated }
 export default function HomeScreen({navigation}) {
     return(
         <View style={styles.container}>
-            <Text style={styles.heading}>Welcome, friend!</Text> 
-            <View style={styles.quote}>
-                <Text>Quote</Text>
-                <View>
-                    
-                </View>
-            </View>
-            
+            <ImageBackground 
+                source={require('../../assets/plant-background.jpg')}
+                resizeMode='cover'
+                style= {{flex : 1}}>
 
+                <View>
+                    <Text style={styles.heading}>Welcome, friend!</Text> 
+                </View>
+                <View style={styles.quote}>
+                    <Text>Quote</Text>
+
+                </View>
+            </ImageBackground>
         </View>
     );
 }
