@@ -43,7 +43,7 @@ export default function HomeScreen({navigation}) {
 
                     <View style={{flexDirection:'row'}}>
                         <TouchableOpacity>
-                            <FontAwesome
+                            <FontAwesome></FontAwesome>
                         </TouchableOpacity>
                     </View>
 
