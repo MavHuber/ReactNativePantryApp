@@ -42,8 +42,8 @@ export default function HomeScreen({navigation}) {
                     </TouchableOpacity>
 
                     <View style={{flexDirection:'row'}}>
-                        <TouchableOpacity>
-                            <FontAwesome></FontAwesome>
+                        <TouchableOpacity onPress={() => {}} style={{}}>
+                            <FontAwesome name="volume-up" size={22} color="" />
                         </TouchableOpacity>
                     </View>
 
