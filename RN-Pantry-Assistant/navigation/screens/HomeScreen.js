@@ -24,7 +24,7 @@ export default function HomeScreen({navigation}) {
                     <Text style={styles.quote}>
                         You can't have a rainbow without a little rain.
                     </Text>
-                    <FontAwesome5 name="quote-right" style={{fontSize:20, marginTop:-20,marginBottom:20}} color="#000" />
+                    <FontAwesome5 name="quote-right" style={{fontSize:20, textAlign:'right',marginTop:-20,marginBottom:20}} color="#000" />
                     <Text 
                         style={{
                             textAlign: 'right', 
@@ -41,7 +41,7 @@ export default function HomeScreen({navigation}) {
                         </Text>
                     </TouchableOpacity>
 
-                    <View style={{flexDirection:'row'}}>
+                    <View style={{flexDirection:'row', justifyContent: 'space-around'}}>
                         <TouchableOpacity onPress={() => {}} style={styles.buttonStyle}>
                             <FontAwesome name="volume-up" size={22} color="#567026" />
                         </TouchableOpacity>
@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         borderRadius: 20,
         padding: 5,
+        justifyContent: 'center'
 
     },
     quoteTitle: {
