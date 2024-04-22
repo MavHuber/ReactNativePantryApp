@@ -35,15 +35,21 @@ export default function HomeScreen({navigation}) {
                             }}>
                                 --- Author Name
                             </Text>
-                    <TouchableOpacity onPress={() => {}} style={{backgroundColor: 'blue', padding: 20, borderRadius: 30, marginVertical: 20,}}>
+                    <TouchableOpacity onPress={() => {}} style={{backgroundColor: '#567026', padding: 20, borderRadius: 30, marginVertical: 20,}}>
                         <Text style={{color:'#fff', fontSize: 18, textAlign: 'center'}}>
                             New Quote
                         </Text>
                     </TouchableOpacity>
 
                     <View style={{flexDirection:'row'}}>
-                        <TouchableOpacity onPress={() => {}} style={{}}>
-                            <FontAwesome name="volume-up" size={22} color="" />
+                        <TouchableOpacity onPress={() => {}} style={styles.buttonStyle}>
+                            <FontAwesome name="volume-up" size={22} color="#567026" />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => {}} style={styles.buttonStyle}>
+                            <FontAwesome name="copy" size={22} color="#567026" />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => {}} style={styles.buttonStyle}>
+                            <FontAwesome name="instagram" size={22} color="#567026" />
                         </TouchableOpacity>
                     </View>
 
@@ -98,4 +104,10 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         paddingHorizontal: 30,
     },
+    buttonStyle: {
+        borderWidth: 2,
+        borderColor: '#567026',
+        borderRadius: 50,
+        padding: 15,
+    }
 })

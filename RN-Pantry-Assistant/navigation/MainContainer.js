@@ -52,7 +52,7 @@ export default function MainContainer(){
 
                     return <Ionicons name={iconName} size={size} color={color}/>
                 },
-                tabBarActiveTintColor: 'blue',
+                tabBarActiveTintColor: '#567026',
                 tabBarInactiveTintColor: 'grey',
                 tabBarLabelStyle: {
                     padding: 3,

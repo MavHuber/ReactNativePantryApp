@@ -128,7 +128,7 @@ export default function PantryScreen({ navigation }) {
                                 key={item}
                                 style={{
                                     opacity: 0.1,
-                                    backgroundColor: '#0492C2',
+                                    backgroundColor: '#567026',
                                     width: circleWidth,
                                     height: circleWidth,
                                     borderRadius: circleWidth / 2,
