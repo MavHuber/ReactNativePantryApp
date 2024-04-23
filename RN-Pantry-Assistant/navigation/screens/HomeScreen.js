@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState, useEffect} from 'react';
 import { View, Text, ImageBackground, StyleSheet, TouchableOpacity, StatusBar } from 'react-native';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -7,11 +8,28 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 export default function HomeScreen({navigation}) {
 
+    const [Quote, setQuote] = useState('Loading...');
+    const [Author, setAuthor] = useState('Loading...');
+    const [isLoading, setIsLoading] = useState(false);
+
     const randomQuote = () => {
-        fetch("https://api.quotable.io/quotes/random").then(res => res.json().then(result => {
-            console.log(result);
+        setIsLoading(true);
+        fetch("https://api.quotable.io/quotes/random")
+            .then(res => res.json()
+            .then(result => {
+                if (Array.isArray(result) && result.length > 0) {
+                    console.log(result[0].content);
+                    setQuote(result[0].content);
+                    setAuthor(result[0].author);
+                    setIsLoading(false);
+                }
         }))
     }
+
+    useEffect(() => {
+        randomQuote();
+    }, []);
+
     return(
         <View style={styles.container}>
             <ImageBackground 
@@ -28,7 +46,7 @@ export default function HomeScreen({navigation}) {
                     </Text>
                     <FontAwesome5 name="quote-left" style={{fontSize:20,marginBottom:-12}} color="#000" />
                     <Text style={styles.quote}>
-                        You can't have a rainbow without a little rain.
+                        {Quote}
                     </Text>
                     <FontAwesome5 name="quote-right" style={{fontSize:20, textAlign:'right',marginTop:-20,marginBottom:20}} color="#000" />
                     <Text 
@@ -39,11 +57,16 @@ export default function HomeScreen({navigation}) {
                             fontSize: 16, 
                             color: '#000'
                             }}>
-                                --- Author Name
+                                --- {Author}
                             </Text>
-                    <TouchableOpacity onPress={randomQuote} style={{backgroundColor: '#567026', padding: 20, borderRadius: 30, marginVertical: 20,}}>
+                    <TouchableOpacity onPress={randomQuote} style={{
+                        backgroundColor: isLoading ? 'rgba(86, 112, 38, 0.7)' : 'rgba(86, 112, 38, 1)', 
+                        padding: 20, 
+                        borderRadius: 30, 
+                        marginVertical: 20,
+                        }}>
                         <Text style={{color:'#fff', fontSize: 18, textAlign: 'center'}}>
-                            New Quote
+                            {isLoading ? 'Loading...' : 'New Quote'}
                         </Text>
                     </TouchableOpacity>
 
