@@ -1,18 +1,24 @@
 import * as React from 'react';
-import { View, Text, Button, ImageBackground, StyleSheet, Dimensions, Animated, TouchableOpacity } from 'react-native';
+import { View, Text, ImageBackground, StyleSheet, TouchableOpacity, StatusBar } from 'react-native';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 
 export default function HomeScreen({navigation}) {
+
+    const randomQuote = () => {
+        fetch("https://api.quotable.io/quotes/random").then(res => res.json().then(result => {
+            console.log(result);
+        }))
+    }
     return(
         <View style={styles.container}>
             <ImageBackground 
                 source={require('../../assets/plant-background.jpg')}
                 resizeMode='cover'
                 style= {{flex : 1}}>
-
+                <StatusBar barStyle="light-content" />
                 <View>
                     <Text style={styles.heading}>Welcome, friend!</Text> 
                 </View>
@@ -35,7 +41,7 @@ export default function HomeScreen({navigation}) {
                             }}>
                                 --- Author Name
                             </Text>
-                    <TouchableOpacity onPress={() => {}} style={{backgroundColor: '#567026', padding: 20, borderRadius: 30, marginVertical: 20,}}>
+                    <TouchableOpacity onPress={randomQuote} style={{backgroundColor: '#567026', padding: 20, borderRadius: 30, marginVertical: 20,}}>
                         <Text style={{color:'#fff', fontSize: 18, textAlign: 'center'}}>
                             New Quote
                         </Text>
