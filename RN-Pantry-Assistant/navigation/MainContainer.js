@@ -14,12 +14,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // Screens
 import HomeScreen from './screens/HomeScreen';
-import PantryScreen from './screens/PantryScreen';
+import BreatheScreen from './screens/BreatheScreen';
 import MealScreen from './screens/MealScreen';
 
 // Screen names
 const homeName = 'Home';
-const pantryName = 'Breathe';
+const breatheName = 'Breathe';
 const mealName = 'Fidget'
 
 const Tab = createBottomTabNavigator();
@@ -44,7 +44,7 @@ export default function MainContainer(){
 
                     if (rn === homeName) {
                         iconName = focused ? 'home' : 'home-outline';
-                    } else if (rn === pantryName) {
+                    } else if (rn === breatheName) {
                         iconName = focused ? 'list' : 'list-outline';
                     } else if (rn === mealName) {
                         iconName = focused ? 'settings' : 'settings-outline';
@@ -67,7 +67,7 @@ export default function MainContainer(){
             })}
             >
 
-            <Tab.Screen name={pantryName} component={PantryScreen}/>
+            <Tab.Screen name={breatheName} component={BreatheScreen}/>
             <Tab.Screen name={homeName} component={HomeScreen}/>
             <Tab.Screen name={mealName} component={MealScreen}/>
 

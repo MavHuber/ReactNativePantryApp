@@ -6,7 +6,7 @@ import RNPickerSelect from 'react-native-picker-select';
 const { width, height } = Dimensions.get("screen");
 const circleWidth = width / 2;
 
-export default function PantryScreen({ navigation }) {
+export default function BreatheScreen({ navigation }) {
 
     const move = useRef(new Animated.Value(0)).current;
     const textOpacity = useRef(new Animated.Value(1)).current;
