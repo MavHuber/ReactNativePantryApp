@@ -1,16 +1,19 @@
 import * as React from 'react';
 import {useState, useEffect} from 'react';
 import { View, Text, ImageBackground, StyleSheet, TouchableOpacity, StatusBar } from 'react-native';
+import * as Speech from 'expo-speech';
+import * as Clipboard from 'expo-clipboard';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-
 
 export default function HomeScreen({navigation}) {
 
     const [Quote, setQuote] = useState('Loading...');
     const [Author, setAuthor] = useState('Loading...');
     const [isLoading, setIsLoading] = useState(false);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const[copiedText, setCopiedText] = useState(' ');
 
     const randomQuote = () => {
         setIsLoading(true);
@@ -18,10 +21,11 @@ export default function HomeScreen({navigation}) {
             .then(res => res.json()
             .then(result => {
                 if (Array.isArray(result) && result.length > 0) {
-                    console.log(result[0].content);
+                    // console.log(result[0].content);
                     setQuote(result[0].content);
                     setAuthor(result[0].author);
                     setIsLoading(false);
+                    setIsPlaying(false);
                 }
         }))
     }
@@ -29,6 +33,21 @@ export default function HomeScreen({navigation}) {
     useEffect(() => {
         randomQuote();
     }, []);
+
+    const speak = () => {
+        // Make sure ringer is on
+        // console.log('Speak Called');
+        Speech.stop();
+        Speech.speak(Quote + ' by ' + Author, {
+            rate: 1,
+            onStart:() => setIsPlaying(true),
+            onDone:() => setIsPlaying(false)
+        })
+    }
+
+    const copyToClipboard = () => {
+        Clipboard.setStringAsync(Quote + ' ' + Author);
+    }
 
     return(
         <View style={styles.container}>
@@ -71,10 +90,10 @@ export default function HomeScreen({navigation}) {
                     </TouchableOpacity>
 
                     <View style={{flexDirection:'row', justifyContent: 'space-around'}}>
-                        <TouchableOpacity onPress={() => {}} style={styles.buttonStyle}>
-                            <FontAwesome name="volume-up" size={22} color="#567026" />
+                        <TouchableOpacity onPress={speak} style={[styles.buttonStyle, {backgroundColor: isPlaying ? '#567026' : '#fff'}]}>
+                            <FontAwesome name="volume-up" size={22} color={isPlaying ? '#fff' : "#567026"} />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => {}} style={styles.buttonStyle}>
+                        <TouchableOpacity onPress={copyToClipboard} style={styles.buttonStyle}>
                             <FontAwesome name="copy" size={22} color="#567026" />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => {}} style={styles.buttonStyle}>
