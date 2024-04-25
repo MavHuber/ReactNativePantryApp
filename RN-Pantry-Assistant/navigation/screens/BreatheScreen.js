@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, Button, ImageBackground, StyleSheet, Dimensions, Animated } from 'react-native';
+import { View, Text, TouchableOpacity, ImageBackground, StyleSheet, Dimensions, Animated } from 'react-native';
 import { useState, useRef } from 'react';
 import RNPickerSelect from 'react-native-picker-select';
 
@@ -149,10 +149,16 @@ export default function BreatheScreen({ navigation }) {
                     <Text className='breaths'>Breaths remaining: {breathCount}</Text>
                 </Animated.View>
                 <Text className='instructions'>Are you ready to begin?</Text>
-                <Button className='startBreath'
-                    onPress={startAnimation()}
-                    title="Begin"
-                />
+                <TouchableOpacity onPress={animateBreath(breathCount)} style={{
+                        backgroundColor: '#567026', 
+                        padding: 20, 
+                        borderRadius: 30, 
+                        marginVertical: 20,
+                        }}>
+                        <Text style={{color:'#fff', fontSize: 18, textAlign: 'center'}}>
+                            Begin
+                        </Text>
+                    </TouchableOpacity>
                 </View>
             </ImageBackground>
         </View>

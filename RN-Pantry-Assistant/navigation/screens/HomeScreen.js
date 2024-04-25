@@ -3,6 +3,7 @@ import {useState, useEffect} from 'react';
 import { View, Text, ImageBackground, StyleSheet, TouchableOpacity, StatusBar } from 'react-native';
 import * as Speech from 'expo-speech';
 import * as Clipboard from 'expo-clipboard';
+import SnackBar from 'react-native-snackbar-component'
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -13,7 +14,9 @@ export default function HomeScreen({navigation}) {
     const [Author, setAuthor] = useState('Loading...');
     const [isLoading, setIsLoading] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
-    const[copiedText, setCopiedText] = useState(' ');
+    const[isCopied, setIsCopied] = useState(false);
+
+    //const wait = (n) => new Promise((resolve) => setTimeout(resolve, n));
 
     const randomQuote = () => {
         setIsLoading(true);
@@ -46,7 +49,10 @@ export default function HomeScreen({navigation}) {
     }
 
     const copyToClipboard = () => {
+        setIsCopied(true);
         Clipboard.setStringAsync(Quote + ' ' + Author);
+        //wait(300);
+        setIsCopied(false);
     }
 
     return(
@@ -96,12 +102,10 @@ export default function HomeScreen({navigation}) {
                         <TouchableOpacity onPress={copyToClipboard} style={styles.buttonStyle}>
                             <FontAwesome name="copy" size={22} color="#567026" />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => {}} style={styles.buttonStyle}>
-                            <FontAwesome name="instagram" size={22} color="#567026" />
-                        </TouchableOpacity>
                     </View>
 
                 </View>
+                <SnackBar visible={isCopied} textMessage="Quote copied" />
             </ImageBackground>
         </View>
     );
@@ -130,11 +134,12 @@ const styles = StyleSheet.create({
     },
     quoteSpace: {
         width: '90%',
+        marginLeft: '5%',
+        marginRight: '5%',
         backgroundColor: '#fff',
         borderRadius: 20,
         padding: 5,
-        justifyContent: 'center'
-
+        justifyContent: 'center',
     },
     quoteTitle: {
         textAlign: 'center',

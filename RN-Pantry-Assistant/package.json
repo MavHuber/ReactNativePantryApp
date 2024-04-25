@@ -13,6 +13,8 @@
     "@react-navigation/bottom-tabs": "^6.5.12",
     "@react-navigation/native": "^6.1.17",
     "expo": "^50.0.17",
+    "expo-clipboard": "~5.0.1",
+    "expo-speech": "~11.7.0",
     "expo-status-bar": "~1.11.1",
     "for-each": "^0.3.3",
     "metro-core": "^0.80.8",
@@ -24,9 +26,8 @@
     "react-native-reanimated": "^3.8.1",
     "react-native-safe-area-context": "4.8.2",
     "react-native-screens": "~3.29.0",
-    "react-native-vector-icons": "10.0.3",
-    "expo-speech": "~11.7.0",
-    "expo-clipboard": "~5.0.1"
+    "react-native-snackbar-component": "^1.1.12",
+    "react-native-vector-icons": "10.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

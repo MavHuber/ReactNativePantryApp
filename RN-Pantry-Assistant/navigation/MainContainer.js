@@ -15,12 +15,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // Screens
 import HomeScreen from './screens/HomeScreen';
 import BreatheScreen from './screens/BreatheScreen';
-import MealScreen from './screens/MealScreen';
+// import MealScreen from './screens/MealScreen';
 
 // Screen names
 const homeName = 'Home';
 const breatheName = 'Breathe';
-const mealName = 'Fidget'
+// const mealName = 'Fidget'
 
 const Tab = createBottomTabNavigator();
 
@@ -69,7 +69,6 @@ export default function MainContainer(){
 
             <Tab.Screen name={breatheName} component={BreatheScreen}/>
             <Tab.Screen name={homeName} component={HomeScreen}/>
-            <Tab.Screen name={mealName} component={MealScreen}/>
 
 
             </Tab.Navigator>
